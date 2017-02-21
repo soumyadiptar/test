@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+     <context:annotation-config/>
+
+   <bean id ="triangle" class="com.test.spring.Triangle" init-method="initialize">
+   		<property name="pointA" ref="pointA"></property>
+		<property name="pointB" ref="pointB"></property>
+		<property name="pointC" ref="pointC"></property>
+		<property name="pointD">
+			<bean class="com.test.spring.Point" >
+		   		<property name="x" value="10"></property>
+		   		<property name="y" value="10"></property>
+		   </bean>
+		</property>
+		<property name="objList">
+			<list>
+				<ref bean="pointA"></ref>
+				<ref bean="pointB"></ref>
+				<ref bean="pointC"></ref>
+			</list>
+		</property>		
+		<constructor-arg index="0" value="abc"></constructor-arg>
+		<constructor-arg index="1" value="1"></constructor-arg>
+
+
+   
+   </bean>
+   
+   
+  
+
+	<bean id ="pointA" class="com.test.spring.Point" init-method="myinit">
+   		<property name="x" value="${POINTA.X}"></property>
+   		<property name="y" value="${POINTA.Y}"></property>
+   
+   </bean>
+	<bean id ="pointB" class="com.test.spring.Point">
+   		<property name="x" value="0"></property>
+   		<property name="y" value="10"></property>
+   
+   </bean>
+	<bean id ="pointC" name="EFG" class="com.test.spring.Point">
+   		<property name="x" value="15"></property>
+   		<property name="y" value="15"></property>
+   </bean>
+	<bean id ="pointE" name="abcd" class="com.test.spring.Point" >
+   		<property name="x" value="5"></property>
+   		<property name="y" value="5"></property>
+   </bean>	
+   	<!--  <bean class="com.test.spring.MyBeanPostProcessorFactory"/>-->
+   	<alias name="triangle" alias="triangle-related"/>
+   	
+   
+     <bean class = "org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name = "locations" value = "test.properties"></property>
+     </bean>
+</beans>
